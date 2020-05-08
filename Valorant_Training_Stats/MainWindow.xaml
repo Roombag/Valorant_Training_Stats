@@ -1,0 +1,35 @@
+﻿<Window x:Class="Valorant_Training_Stats.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Valorant_Training_Stats"
+        mc:Ignorable="d"
+        Title="Valorant Training Stats" Height="699" Width="800" Background="#FF4F4F4F" Icon="VTS.ico">
+    <Grid Height="668" VerticalAlignment="Top">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Label x:Name="lbl_Speed" Content="Speed" HorizontalAlignment="Left" Height="41" Margin="67,93,0,0" VerticalAlignment="Top" Width="180" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="#FF4E7A6B" FontSize="18" FontWeight="Medium" Foreground="#FFEBEEB2" BorderBrush="#FFA7BDB5" BorderThickness="0,0,0,2"/>
+        <Label x:Name="lbl_Streak" Content="Streak" HorizontalAlignment="Left" Height="41" Margin="313,93,0,0" VerticalAlignment="Top" Width="180" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="#FF4E7A6B" FontSize="18" FontWeight="Medium" Foreground="#FFEBEEB2" BorderBrush="#FFA7BDB5" BorderThickness="0,0,0,2"/>
+        <Label x:Name="lbl_Bots" Content="Bots" HorizontalAlignment="Left" Height="41" Margin="555,93,0,0" VerticalAlignment="Top" Width="180" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="#FF4E7A6B" FontSize="18" FontWeight="Medium" Foreground="#FFEBEEB2" BorderBrush="#FFA7BDB5" BorderThickness="0,0,0,2"/>
+        <Button x:Name="btn_Easy" Content="Easy" HorizontalAlignment="Left" Height="30" Margin="67,153,0,0" VerticalAlignment="Top" Width="180" Background="#FF858585" Foreground="White" FontWeight="Bold" Click="btn_Easy_Click"/>
+        <Button x:Name="btn_Medium" Content="Medium" HorizontalAlignment="Left" Height="30" Margin="67,205,0,0" VerticalAlignment="Top" Width="180" Background="#FF858585" Foreground="White" FontWeight="Bold" Click="btn_Medium_Click"/>
+        <Button x:Name="btn_Hard" Content="Hard" HorizontalAlignment="Left" Height="30" Margin="67,254,0,0" VerticalAlignment="Top" Width="180" Background="#FF858585" Foreground="White" FontWeight="Bold" Click="btn_Hard_Click"/>
+        <Button x:Name="btn_Elim_50" Content="Eliminate 50" HorizontalAlignment="Left" Height="30" Margin="313,153,0,0" VerticalAlignment="Top" Width="180" Background="#FF858585" Foreground="White" FontWeight="Bold" Click="btn_Elim_50_Click"/>
+        <Button x:Name="btn_Elim_100" Content="Eliminate 100" HorizontalAlignment="Left" Height="30" Margin="313,205,0,0" VerticalAlignment="Top" Width="180" Background="#FF858585" Foreground="White" FontWeight="Bold" Click="btn_Elim_100_Click"/>
+        <Button x:Name="btn_Strafe" Content="Strafe" HorizontalAlignment="Left" Height="30" Margin="555,153,0,0" VerticalAlignment="Top" Width="180" Background="#FF858585" Foreground="White" FontWeight="Bold" Click="btn_Strafe_Click"/>
+        <Label x:Name="lbl_Bot_Armor" Content="Bot Armor" HorizontalAlignment="Left" Height="41" Margin="182,337,0,0" VerticalAlignment="Top" Width="180" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="#FF4E7A6B" FontSize="18" FontWeight="Medium" Foreground="#FFEBEEB2" BorderBrush="#FFA7BDB5" BorderThickness="0,0,0,2"/>
+        <Label x:Name="lbl_Inf_Ammo" Content="Infinite Ammo" HorizontalAlignment="Left" Height="41" Margin="428,337,0,0" VerticalAlignment="Top" Width="180" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="#FF4E7A6B" FontSize="18" FontWeight="Medium" Foreground="#FFEBEEB2" BorderBrush="#FFA7BDB5" BorderThickness="0,0,0,2"/>
+        <Button x:Name="btn_Armor_On" Content="On" HorizontalAlignment="Left" Height="38" Margin="182,406,0,0" VerticalAlignment="Top" Width="90" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" FontSize="18" FontWeight="Bold" Click="btn_Armor_On_Click"/>
+        <Button x:Name="btn_Armor_Off" Content="Off" HorizontalAlignment="Left" Height="38" Margin="272,406,0,0" VerticalAlignment="Top" Width="90" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" FontSize="18" FontWeight="Bold" Click="btn_Armor_Off_Click"/>
+        <Button x:Name="btn_Inf_Ammo_On" Content="On" HorizontalAlignment="Left" Height="38" Margin="428,406,0,0" VerticalAlignment="Top" Width="90" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" FontSize="18" FontWeight="Bold" Click="btn_Inf_Ammo_On_Click"/>
+        <Button x:Name="btn_Inf_Ammo_Off" Content="Off" HorizontalAlignment="Left" Height="38" Margin="518,406,0,0" VerticalAlignment="Top" Width="90" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" FontSize="18" FontWeight="Bold" Click="btn_Inf_Ammo_Off_Click"/>
+        <Label Content="Valorant Training Stats" HorizontalAlignment="Left" Height="54" VerticalAlignment="Top" Width="792" FontWeight="Bold" Background="#FF7E7C7C" Foreground="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="20"/>
+        <Button x:Name="btn_Done" Content="Done" HorizontalAlignment="Left" Height="105" Margin="428,499,0,0" VerticalAlignment="Top" Width="180" Background="#FFD7DBA5" Foreground="Black" FontSize="36" FontWeight="SemiBold" Click="btn_Done_Click"/>
+        <TextBox x:Name="txt_Result" HorizontalAlignment="Left" Height="105" Margin="182,499,0,0" TextWrapping="Wrap" Text="30" VerticalAlignment="Top" Width="180" Background="#FFD7DBA5" TextAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="SemiBold" FontSize="48"/>
+        <Button x:Name="btn_Plus" Content="+" HorizontalAlignment="Left" Height="50" Margin="114,499,0,0" VerticalAlignment="Top" Width="50" FontSize="48" FontWeight="ExtraBold" Padding="1,-15,1,1" Background="#FF858585" Click="btn_Plus_Click"/>
+        <Button x:Name="btn_Minus" Content="-" HorizontalAlignment="Left" Height="50" Margin="114,554,0,0" VerticalAlignment="Top" Width="50" FontSize="48" FontWeight="ExtraBold" Padding="1,-15,1,1" Background="#FF858585" Click="btn_Minus_Click"/>
+
+    </Grid>
+</Window>
