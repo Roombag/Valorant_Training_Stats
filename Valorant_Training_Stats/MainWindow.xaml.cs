@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Valorant;
 
 namespace Valorant_Training_Stats
 {
@@ -34,31 +35,9 @@ namespace Valorant_Training_Stats
             public static bool Inf_Ammo = true;
         }
 
-        public class Weapon
-        {
+        
 
-            public string name { get; private set; }
-            public WeaponType type { get; private set; }
-
-            public Weapon(string name, WeaponType type)
-            {
-                this.name = name;
-                this.type = type;
-            }
-
-        }
-
-        public class WeaponType
-        {
-            public string name { get; private set; }
-            public int id { get; private set; }
-            public WeaponType(string name = "", int id = 0)
-            {
-                this.name = name;
-                this.id = id;
-            }
-
-        }
+        
 
 
         public MainWindow()
@@ -69,12 +48,6 @@ namespace Valorant_Training_Stats
 
         }
 
-        public static class ValorantColors
-        {
-            public static SolidColorBrush ActiveButton = (SolidColorBrush)(new BrushConverter().ConvertFrom("#969971"));
-            public static SolidColorBrush InactiveButton = (SolidColorBrush)(new BrushConverter().ConvertFrom("#858585"));
-
-        }
 
         void CreateDropdown()
         {
@@ -83,43 +56,7 @@ namespace Valorant_Training_Stats
 
         }
 
-        public static class WeaponList
-        {
-
-            public static WeaponType Sidearm = new WeaponType("Sidearm", 1);
-            public static WeaponType SMG = new WeaponType("SMG", 2);
-            public static WeaponType Shotgun = new WeaponType("Shotgun", 3);
-            public static WeaponType Rifle = new WeaponType("Rifle", 4);
-            public static WeaponType Sniper = new WeaponType("Sniper", 5);
-            public static WeaponType Heavy = new WeaponType("Heavy", 6);
-
-            public static Weapon Classic = new Weapon("Classic", Sidearm);
-            public static Weapon Shorty = new Weapon("Shorty", Sidearm);
-            public static Weapon Frenzy = new Weapon("Frenzy", Sidearm);
-            public static Weapon Ghost = new Weapon("Ghost", Sidearm);
-            public static Weapon Sheriff = new Weapon("Sheriff", Sidearm);
-
-            public static Weapon Stinger = new Weapon("Stinger", SMG);
-            public static Weapon Spectre = new Weapon("Spectre", SMG);
-
-            public static Weapon Bucky = new Weapon("Bucky", Shotgun);
-            public static Weapon Judge = new Weapon("Judge", Shotgun);
-
-            public static Weapon Bulldog = new Weapon("Bulldog", Rifle);
-            public static Weapon Guardian = new Weapon("Guardian", Rifle);
-            public static Weapon Phantom = new Weapon("Phantom", Rifle);
-            public static Weapon Vandal = new Weapon("Vandal", Rifle);
-
-            public static Weapon Marshal = new Weapon("Marshal", Sniper);
-            public static Weapon Operator = new Weapon("Operator", Rifle);
-
-            public static Weapon Ares = new Weapon("Ares", Heavy);
-            public static Weapon Odin = new Weapon("Odin", Heavy);
-
-            
-            
-
-        }
+        
 
 
 
@@ -144,12 +81,11 @@ namespace Valorant_Training_Stats
 
             foreach(Button element in Mode_Buttons)
             {
-                element.Background = ValorantColors.InactiveButton;
+                element.Background = Valorant.Colors.InactiveButton;
             }
-            Pressed_Button.Background = ValorantColors.ActiveButton;
+            Pressed_Button.Background = Valorant.Colors.ActiveButton;
 
             Settings.Practice_Mode = Convert.ToString(Pressed_Button.Content);
-
         }
 
         void Config_Button(Button Pressed_Button)
@@ -159,34 +95,34 @@ namespace Valorant_Training_Stats
                 case "btn_Strafe":
                     if (Settings.Bots_Strafe == true)
                     {
-                        btn_Strafe.Background = ValorantColors.InactiveButton;
+                        btn_Strafe.Background = Valorant.Colors.InactiveButton;
                         Settings.Bots_Strafe = false;
                         break;
                     }
                     else
                     {
-                        btn_Strafe.Background = ValorantColors.ActiveButton;
+                        btn_Strafe.Background = Valorant.Colors.ActiveButton;
                         Settings.Bots_Strafe = true;
                         break;
                     }
                 case "btn_Armor_On":
-                    btn_Armor_On.Background = ValorantColors.ActiveButton;
-                    btn_Armor_Off.Background = ValorantColors.InactiveButton;
+                    btn_Armor_On.Background = Valorant.Colors.ActiveButton;
+                    btn_Armor_Off.Background = Valorant.Colors.InactiveButton;
                     Settings.Bot_Armor = true;
                     break;
                 case "btn_Armor_Off":
-                    btn_Armor_On.Background = ValorantColors.InactiveButton;
-                    btn_Armor_Off.Background = ValorantColors.ActiveButton;
+                    btn_Armor_On.Background = Valorant.Colors.InactiveButton;
+                    btn_Armor_Off.Background = Valorant.Colors.ActiveButton;
                     Settings.Bot_Armor = false;
                     break;
                 case "btn_Inf_Ammo_On":
-                    btn_Inf_Ammo_On.Background = ValorantColors.ActiveButton;
-                    btn_Inf_Ammo_Off.Background = ValorantColors.InactiveButton;
+                    btn_Inf_Ammo_On.Background = Valorant.Colors.ActiveButton;
+                    btn_Inf_Ammo_Off.Background = Valorant.Colors.InactiveButton;
                     Settings.Inf_Ammo = true;
                     break;
                 case "btn_Inf_Ammo_Off":
-                    btn_Inf_Ammo_On.Background = ValorantColors.InactiveButton;
-                    btn_Inf_Ammo_Off.Background = ValorantColors.ActiveButton;
+                    btn_Inf_Ammo_On.Background = Valorant.Colors.InactiveButton;
+                    btn_Inf_Ammo_Off.Background = Valorant.Colors.ActiveButton;
                     Settings.Inf_Ammo = false;
                     break;
                 default:
