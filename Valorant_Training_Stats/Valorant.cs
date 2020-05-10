@@ -41,6 +41,10 @@ namespace Valorant
     }
     public static class Weapons
     {
+        // Trying to make generation of WeaponType elements easier
+        // internal static List<String> WeaponTypeList = new List<string> { "Sidearm", "SMG", "Shotgun", "Rifle", "Sniper", "Heavy" };
+        // public static List<String> WeaponTypeList = new List<string> { "Sidearm", "SMG", "Shotgun", "Rifle", "Sniper", "Heavy" };
+
 
         public static WeaponType Sidearm = new WeaponType("Sidearm", 1);
         public static WeaponType SMG = new WeaponType("SMG", 2);
@@ -72,8 +76,15 @@ namespace Valorant
         public static Weapon Ares = new Weapon("Ares", Heavy);
         public static Weapon Odin = new Weapon("Odin", Heavy);
 
-
+        public static List<Weapon> WeaponList = new List<Weapon> 
+        {   Classic, Shorty, Frenzy, Ghost, Sheriff, 
+            Stinger, Spectre, Bucky, Judge,
+            Bulldog, Guardian, Phantom, Vandal, 
+            Marshal, Operator, Ares, Odin
+        };
 
 
     }
+
+    
 }

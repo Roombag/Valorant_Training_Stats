@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Security.Policy;
@@ -15,6 +16,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Valorant;
+using NHotkey.Wpf;
+using NHotkey;
 
 namespace Valorant_Training_Stats
 {
@@ -33,38 +36,75 @@ namespace Valorant_Training_Stats
             public static bool Bots_Strafe = false;
             public static bool Bot_Armor = false;
             public static bool Inf_Ammo = true;
+            // public static Weapon CurrentWeapon;
         }
 
-        
+        public void OnIncrement(object sender, HotkeyEventArgs e)
+        {
+            int result = Convert.ToInt32(txt_Result.Text);
+            result++;
+            txt_Result.Text = Convert.ToString(result);
+        }
 
-        
+        public void OnDecrement(object sender, HotkeyEventArgs e)
+        {
+            int result = Convert.ToInt32(txt_Result.Text);
+            result--;
+            txt_Result.Text = Convert.ToString(result);
+        }
+
+        private void OnDone(object sender, HotkeyEventArgs e)
+        {
+            Save_Result();
+        }
+
+
+        void InitializeHotkeys()
+        {
+            HotkeyManager.Current.AddOrReplace("Increment", Key.PageUp, ModifierKeys.Control, OnIncrement);
+            HotkeyManager.Current.AddOrReplace("Decrement", Key.PageDown, ModifierKeys.Control, OnDecrement);
+            HotkeyManager.Current.AddOrReplace("Done", Key.End, ModifierKeys.Control, OnDone);
+
+        }
+
 
 
         public MainWindow()
         {
             InitializeComponent();
-            Initialize_Buttons();
+            InitializeButtons();
             CreateDropdown();
-
+            InitializeHotkeys();
         }
 
 
         void CreateDropdown()
         {
             List<String> WeaponNames = new List<string>();
-            //var test = typeof(Weapon).GetProperty;
+            for (int i = 0; i < Valorant.Weapons.WeaponList.Count; i++)
+            {
+                WeaponNames.Add(Valorant.Weapons.WeaponList[i].name);
+            }
+            // var test = typeof(Weapon).GetProperty;
+            // var nameares = Weapons.Ares.name;
+            cbx_Weapon_Select.ItemsSource = WeaponNames;
 
         }
 
-        
 
 
 
-        void Initialize_Buttons()
+
+        void InitializeButtons()
         {
             Mode_Button(btn_Easy);
             Config_Button(btn_Inf_Ammo_On);
             Config_Button(btn_Armor_Off);
+            KeyBinding TestKeyBinding = new KeyBinding(
+                ApplicationCommands.Close,
+                Key.X,
+                ModifierKeys.Control
+                );
         }
 
         void Mode_Button(Button Pressed_Button)
@@ -132,9 +172,12 @@ namespace Valorant_Training_Stats
 
         void Save_Result()
         {
-            string Output = txt_Result.Text + ", " + Settings.Practice_Mode + ", " + Settings.Bots_Strafe + ", " + Settings.Bot_Armor + ", " + Settings.Inf_Ammo + "\n";
+            //var currentweapon = cbx_Weapon_Select.Text;
+            string Output = txt_Result.Text + ", " + Settings.Practice_Mode + ", " + 
+                Settings.Bots_Strafe + ", " + Settings.Bot_Armor + ", " + Settings.Inf_Ammo + ", " + 
+                cbx_Weapon_Select.Text + "\n";
             //string Output = "Mode: " + Settings.Practice_Mode + ", Score: " +txt_Result.Text+"\n";
-            System.IO.File.AppendAllText(@"C:\Users\Public\TestFolder\Valorant_Practice_Stats.csv", Output);
+            System.IO.File.AppendAllText(@"C:\Users\Public\TestFolder\Valorant_Practice_Stats_Test.csv", Output);
         }
 
         private void btn_Easy_Click(object sender, RoutedEventArgs e)
