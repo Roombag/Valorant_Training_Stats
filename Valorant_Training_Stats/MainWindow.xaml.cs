@@ -79,11 +79,11 @@ namespace Valorant_Training_Stats
 
         static class Settings
         {
-            public static string Practice_Mode;
-            public static bool Bots_Strafe = false;
-            public static bool Bot_Armor = false;
-            public static bool Inf_Ammo = true;
-            // public static Weapon CurrentWeapon;
+            public static string PracticeMode;
+            public static bool BotsStrafe = false;
+            public static bool BotArmor = false;
+            public static bool InfAmmo = true;
+            public static string SelectedWeapon;
         }
 
         public void OnIncrement(object sender, HotkeyEventArgs e)
@@ -124,7 +124,7 @@ namespace Valorant_Training_Stats
             }
             Pressed_Button.Background = Valorant.Colors.ActiveButton;
 
-            Settings.Practice_Mode = Convert.ToString(Pressed_Button.Content);
+            Settings.PracticeMode = Convert.ToString(Pressed_Button.Content);
         }
 
         void ConfigButtonPressed(Button Pressed_Button)
@@ -134,41 +134,75 @@ namespace Valorant_Training_Stats
             switch (Pressed_Button.Name)
             {
                 case "btn_Strafe":
-                    if (Settings.Bots_Strafe == true)
+                    if (Settings.BotsStrafe == true)
                     {
                         btn_Strafe.Background = Valorant.Colors.InactiveButton;
-                        Settings.Bots_Strafe = false;
+                        Settings.BotsStrafe = false;
                         break;
                     }
                     else
                     {
                         btn_Strafe.Background = Valorant.Colors.ActiveButton;
-                        Settings.Bots_Strafe = true;
+                        Settings.BotsStrafe = true;
                         break;
                     }
                 case "btn_Armor_On":
                     btn_Armor_On.Background = Valorant.Colors.ActiveButton;
                     btn_Armor_Off.Background = Valorant.Colors.InactiveButton;
-                    Settings.Bot_Armor = true;
+                    Settings.BotArmor = true;
                     break;
                 case "btn_Armor_Off":
                     btn_Armor_On.Background = Valorant.Colors.InactiveButton;
                     btn_Armor_Off.Background = Valorant.Colors.ActiveButton;
-                    Settings.Bot_Armor = false;
+                    Settings.BotArmor = false;
                     break;
                 case "btn_Inf_Ammo_On":
                     btn_Inf_Ammo_On.Background = Valorant.Colors.ActiveButton;
                     btn_Inf_Ammo_Off.Background = Valorant.Colors.InactiveButton;
-                    Settings.Inf_Ammo = true;
+                    Settings.InfAmmo = true;
                     break;
                 case "btn_Inf_Ammo_Off":
                     btn_Inf_Ammo_On.Background = Valorant.Colors.InactiveButton;
                     btn_Inf_Ammo_Off.Background = Valorant.Colors.ActiveButton;
-                    Settings.Inf_Ammo = false;
+                    Settings.InfAmmo = false;
                     break;
                 default:
                     break;
             }
+        }
+
+        //private Weapon GetSelectedWeapon(string strWeapon)
+        //{
+
+        //    return Valorant.Weapons.Ares;
+        //}
+
+        public Weapon GetWeapon(string weap)
+        {
+            Weapon ret = Weapons.WeaponList.Find(x => x.name.Contains(weap));
+            // TODO: find out how the fuck this works!
+            return ret;
+        }
+
+        void SaveResult()
+        {
+            // TODO: Clean this fucking mess up
+
+            String CurrentTime = DateTime.Now.ToString();
+            //var currentweapon = cbx_Weapon_Select.Text;
+            string Output = CurrentTime + ", " + txt_Result.Text + ", " + Settings.PracticeMode + ", " +
+                Settings.BotsStrafe + ", " + Settings.BotArmor + ", " + Settings.InfAmmo + ", " +
+                cbx_Weapon_Select.Text + "\n";
+            //string Output = "Mode: " + Settings.Practice_Mode + ", Score: " +txt_Result.Text+"\n";
+            System.IO.File.AppendAllText(@"C:\Users\Public\TestFolder\Valorant_Practice_Stats_Test.csv", Output);
+            // shit works, wtf
+            txt_Test.Text = GetWeapon(cbx_Weapon_Select.Text).name;
+        }
+
+        // All Button click Methods below
+        private void btn_Easy_Click(object sender, RoutedEventArgs e)
+        {
+            ModeButtonPressed((Button)sender);
         }
 
         private void IncrementResult()
@@ -183,25 +217,6 @@ namespace Valorant_Training_Stats
             int result = Convert.ToInt32(txt_Result.Text);
             result--;
             txt_Result.Text = Convert.ToString(result);
-        }
-
-        void SaveResult()
-        {
-            // TODO: Clean this fucking mess up
-
-            String CurrentTime = DateTime.Now.ToString();
-            //var currentweapon = cbx_Weapon_Select.Text;
-            string Output = CurrentTime + ", " + txt_Result.Text + ", " + Settings.Practice_Mode + ", " + 
-                Settings.Bots_Strafe + ", " + Settings.Bot_Armor + ", " + Settings.Inf_Ammo + ", " + 
-                cbx_Weapon_Select.Text + "\n";
-            //string Output = "Mode: " + Settings.Practice_Mode + ", Score: " +txt_Result.Text+"\n";
-            System.IO.File.AppendAllText(@"C:\Users\Public\TestFolder\Valorant_Practice_Stats_Test.csv", Output);
-        }
-
-        // All Button click Methods below
-        private void btn_Easy_Click(object sender, RoutedEventArgs e)
-        {
-            ModeButtonPressed((Button)sender);
         }
 
         private void btn_Medium_Click(object sender, RoutedEventArgs e)
@@ -272,7 +287,8 @@ namespace Valorant_Training_Stats
 
         private void cbx_Weapon_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            
+
         }
+
     }
 }

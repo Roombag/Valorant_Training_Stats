@@ -83,7 +83,6 @@ namespace Valorant
             Marshal, Operator, Ares, Odin
         };
 
-
     }
 
     
