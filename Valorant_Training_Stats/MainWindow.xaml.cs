@@ -192,11 +192,11 @@ namespace Valorant_Training_Stats
             //var currentweapon = cbx_Weapon_Select.Text;
             string Output = CurrentTime + ", " + txt_Result.Text + ", " + Settings.PracticeMode + ", " +
                 Settings.BotsStrafe + ", " + Settings.BotArmor + ", " + Settings.InfAmmo + ", " +
-                cbx_Weapon_Select.Text + "\n";
+                cbx_Weapon_Select.Text + ", " + GetWeapon(cbx_Weapon_Select.Text).type.name + "\n";
             //string Output = "Mode: " + Settings.Practice_Mode + ", Score: " +txt_Result.Text+"\n";
             System.IO.File.AppendAllText(@"C:\Users\Public\TestFolder\Valorant_Practice_Stats_Test.csv", Output);
             // shit works, wtf
-            txt_Test.Text = GetWeapon(cbx_Weapon_Select.Text).name;
+            txt_Test.Text = GetWeapon(cbx_Weapon_Select.Text).type.name;
         }
 
         // All Button click Methods below
