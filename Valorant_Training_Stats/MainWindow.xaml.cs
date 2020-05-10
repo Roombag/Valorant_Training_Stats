@@ -130,6 +130,7 @@ namespace Valorant_Training_Stats
         void ConfigButtonPressed(Button Pressed_Button)
         {
             // messy... can Probably clean this up
+
             switch (Pressed_Button.Name)
             {
                 case "btn_Strafe":
