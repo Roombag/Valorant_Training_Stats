@@ -44,6 +44,7 @@ namespace Valorant_Training_Stats
             int result = Convert.ToInt32(txt_Result.Text);
             result++;
             txt_Result.Text = Convert.ToString(result);
+            e.Handled = true;
         }
 
         public void OnDecrement(object sender, HotkeyEventArgs e)
@@ -51,11 +52,13 @@ namespace Valorant_Training_Stats
             int result = Convert.ToInt32(txt_Result.Text);
             result--;
             txt_Result.Text = Convert.ToString(result);
+            e.Handled = true;
         }
 
         private void OnDone(object sender, HotkeyEventArgs e)
         {
             Save_Result();
+            e.Handled = true;
         }
 
 
@@ -64,7 +67,6 @@ namespace Valorant_Training_Stats
             HotkeyManager.Current.AddOrReplace("Increment", Key.PageUp, ModifierKeys.Control, OnIncrement);
             HotkeyManager.Current.AddOrReplace("Decrement", Key.PageDown, ModifierKeys.Control, OnDecrement);
             HotkeyManager.Current.AddOrReplace("Done", Key.End, ModifierKeys.Control, OnDone);
-
         }
 
 
@@ -172,8 +174,9 @@ namespace Valorant_Training_Stats
 
         void Save_Result()
         {
+            String CurrentTime = DateTime.Now.ToString();
             //var currentweapon = cbx_Weapon_Select.Text;
-            string Output = txt_Result.Text + ", " + Settings.Practice_Mode + ", " + 
+            string Output = CurrentTime + ", " + txt_Result.Text + ", " + Settings.Practice_Mode + ", " + 
                 Settings.Bots_Strafe + ", " + Settings.Bot_Armor + ", " + Settings.Inf_Ammo + ", " + 
                 cbx_Weapon_Select.Text + "\n";
             //string Output = "Mode: " + Settings.Practice_Mode + ", Score: " +txt_Result.Text+"\n";
