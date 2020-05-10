@@ -30,6 +30,53 @@ namespace Valorant_Training_Stats
 
     public partial class MainWindow : Window
     {
+
+        public MainWindow()
+        {
+            InitializeComponent();
+            InitializeButtons();
+            CreateDropdown();
+            SetHotkeys();
+
+            string teast = Weapons.WeaponList[1].name;
+        }
+
+        void InitializeButtons()
+        {
+            ModeButtonPressed(btn_Easy);
+            ConfigButtonPressed(btn_Inf_Ammo_On);
+            ConfigButtonPressed(btn_Armor_Off);
+        }
+
+        void CreateDropdown()
+        {
+            {// I didn't know how to foreach....
+
+            // List<String> WeaponNames = new List<string>();
+            //for (int i = 0; i < Valorant.Weapons.WeaponList.Count; i++)
+            }
+            foreach (Weapon item in Valorant.Weapons.WeaponList)
+            {
+                cbx_Weapon_Select.Items.Add(item.name);
+            }
+            {
+                //WeaponNames.Add(Valorant.Weapons.WeaponList[i].name);
+                //cbx_Weapon_Select.Items.Add(Valorant.Weapons.WeaponList[i].name
+                // cbx_Weapon_Select.ItemsSource = WeaponNames;
+                //int i = 1;
+                //cbx_Weapon_Select.ItemsSource = Valorant.Weapons.WeaponList[i].name;
+            }
+        }
+
+        void SetHotkeys()
+        {
+            HotkeyManager.Current.AddOrReplace("Increment", Key.PageUp, ModifierKeys.Control, OnIncrement);
+            HotkeyManager.Current.AddOrReplace("Decrement", Key.PageDown, ModifierKeys.Control, OnDecrement);
+            HotkeyManager.Current.AddOrReplace("Done", Key.End, ModifierKeys.Control, OnDone);
+        }
+
+        // Methods called by MainWindow below
+
         static class Settings
         {
             public static string Practice_Mode;
@@ -41,75 +88,25 @@ namespace Valorant_Training_Stats
 
         public void OnIncrement(object sender, HotkeyEventArgs e)
         {
-            int result = Convert.ToInt32(txt_Result.Text);
-            result++;
-            txt_Result.Text = Convert.ToString(result);
+            IncrementResult();
             e.Handled = true;
         }
 
         public void OnDecrement(object sender, HotkeyEventArgs e)
         {
-            int result = Convert.ToInt32(txt_Result.Text);
-            result--;
-            txt_Result.Text = Convert.ToString(result);
+            DecrementResult();
             e.Handled = true;
         }
 
         private void OnDone(object sender, HotkeyEventArgs e)
         {
-            Save_Result();
+            SaveResult();
             e.Handled = true;
         }
 
 
-        void InitializeHotkeys()
-        {
-            HotkeyManager.Current.AddOrReplace("Increment", Key.PageUp, ModifierKeys.Control, OnIncrement);
-            HotkeyManager.Current.AddOrReplace("Decrement", Key.PageDown, ModifierKeys.Control, OnDecrement);
-            HotkeyManager.Current.AddOrReplace("Done", Key.End, ModifierKeys.Control, OnDone);
-        }
-
-
-
-        public MainWindow()
-        {
-            InitializeComponent();
-            InitializeButtons();
-            CreateDropdown();
-            InitializeHotkeys();
-        }
-
-
-        void CreateDropdown()
-        {
-            List<String> WeaponNames = new List<string>();
-            for (int i = 0; i < Valorant.Weapons.WeaponList.Count; i++)
-            {
-                WeaponNames.Add(Valorant.Weapons.WeaponList[i].name);
-            }
-            // var test = typeof(Weapon).GetProperty;
-            // var nameares = Weapons.Ares.name;
-            cbx_Weapon_Select.ItemsSource = WeaponNames;
-
-        }
-
-
-
-
-
-        void InitializeButtons()
-        {
-            Mode_Button(btn_Easy);
-            Config_Button(btn_Inf_Ammo_On);
-            Config_Button(btn_Armor_Off);
-            KeyBinding TestKeyBinding = new KeyBinding(
-                ApplicationCommands.Close,
-                Key.X,
-                ModifierKeys.Control
-                );
-        }
-
-        void Mode_Button(Button Pressed_Button)
+      
+        void ModeButtonPressed(Button Pressed_Button)
         {
 
             List<Button> Mode_Buttons = new List<Button>()
@@ -130,8 +127,9 @@ namespace Valorant_Training_Stats
             Settings.Practice_Mode = Convert.ToString(Pressed_Button.Content);
         }
 
-        void Config_Button(Button Pressed_Button)
+        void ConfigButtonPressed(Button Pressed_Button)
         {
+            // messy... can Probably clean this up
             switch (Pressed_Button.Name)
             {
                 case "btn_Strafe":
@@ -172,8 +170,24 @@ namespace Valorant_Training_Stats
             }
         }
 
-        void Save_Result()
+        private void IncrementResult()
         {
+            int result = Convert.ToInt32(txt_Result.Text);
+            result++;
+            txt_Result.Text = Convert.ToString(result);
+        }
+
+        private void DecrementResult()
+        {
+            int result = Convert.ToInt32(txt_Result.Text);
+            result--;
+            txt_Result.Text = Convert.ToString(result);
+        }
+
+        void SaveResult()
+        {
+            // TODO: Clean this fucking mess up
+
             String CurrentTime = DateTime.Now.ToString();
             //var currentweapon = cbx_Weapon_Select.Text;
             string Output = CurrentTime + ", " + txt_Result.Text + ", " + Settings.Practice_Mode + ", " + 
@@ -183,76 +197,77 @@ namespace Valorant_Training_Stats
             System.IO.File.AppendAllText(@"C:\Users\Public\TestFolder\Valorant_Practice_Stats_Test.csv", Output);
         }
 
+        // All Button click Methods below
         private void btn_Easy_Click(object sender, RoutedEventArgs e)
         {
-            Mode_Button((Button)sender);
+            ModeButtonPressed((Button)sender);
         }
 
         private void btn_Medium_Click(object sender, RoutedEventArgs e)
         {
-            Mode_Button((Button)sender);
+            ModeButtonPressed((Button)sender);
         }
 
         private void btn_Hard_Click(object sender, RoutedEventArgs e)
         {
-            Mode_Button((Button)sender);
+            ModeButtonPressed((Button)sender);
         }
 
         private void btn_Elim_50_Click(object sender, RoutedEventArgs e)
         {
-            Mode_Button((Button)sender);
+            ModeButtonPressed((Button)sender);
         }
 
         private void btn_Elim_100_Click(object sender, RoutedEventArgs e)
         {
-            Mode_Button((Button)sender);
+            ModeButtonPressed((Button)sender);
         }
 
         private void btn_Strafe_Click(object sender, RoutedEventArgs e)
         {
-            Config_Button((Button)sender);
+            ConfigButtonPressed((Button)sender);
         }
 
         private void btn_Armor_On_Click(object sender, RoutedEventArgs e)
         {
-            Config_Button((Button)sender);
+            ConfigButtonPressed((Button)sender);
         }
 
         private void btn_Armor_Off_Click(object sender, RoutedEventArgs e)
         {
-            Config_Button((Button)sender);
+            ConfigButtonPressed((Button)sender);
         }
 
         private void btn_Inf_Ammo_On_Click(object sender, RoutedEventArgs e)
         {
-            Config_Button((Button)sender);
+            ConfigButtonPressed((Button)sender);
         }
 
         private void btn_Inf_Ammo_Off_Click(object sender, RoutedEventArgs e)
         {
-            Config_Button((Button)sender);
+            ConfigButtonPressed((Button)sender);
         }
 
 
         private void btn_Done_Click(object sender, RoutedEventArgs e)
         {
-            Save_Result();
+            SaveResult();
         }
 
 
         private void btn_Plus_Click(object sender, RoutedEventArgs e)
         {
-            int result = Convert.ToInt32(txt_Result.Text);
-            result++;
-            txt_Result.Text = Convert.ToString(result);
+            IncrementResult();
         }
+
+        
 
         private void btn_Minus_Click(object sender, RoutedEventArgs e)
         {
-            int result = Convert.ToInt32(txt_Result.Text);
-            result--;
-            txt_Result.Text = Convert.ToString(result);
+            DecrementResult();
         }
+
+        
 
         private void cbx_Weapon_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
