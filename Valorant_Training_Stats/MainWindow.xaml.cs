@@ -37,9 +37,9 @@ namespace Valorant_Training_Stats
             InitializeButtons();
             CreateDropdown();
             SetHotkeys();
-
-            string teast = Weapons.WeaponList[1].name;
         }
+
+        // Methods called by MainWindow below
 
         void InitializeButtons()
         {
@@ -75,7 +75,6 @@ namespace Valorant_Training_Stats
             HotkeyManager.Current.AddOrReplace("Done", Key.End, ModifierKeys.Control, OnDone);
         }
 
-        // Methods called by MainWindow below
 
         static class Settings
         {
@@ -83,7 +82,7 @@ namespace Valorant_Training_Stats
             public static bool BotsStrafe = false;
             public static bool BotArmor = false;
             public static bool InfAmmo = true;
-            public static string SelectedWeapon;
+            // public static string SelectedWeapon;
         }
 
         public void OnIncrement(object sender, HotkeyEventArgs e)
@@ -180,7 +179,7 @@ namespace Valorant_Training_Stats
         public Weapon GetWeapon(string weap)
         {
             Weapon ret = Weapons.WeaponList.Find(x => x.name.Contains(weap));
-            // TODO: find out how the fuck this works!
+            // ???
             return ret;
         }
 
