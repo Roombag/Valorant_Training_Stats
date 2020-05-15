@@ -250,6 +250,7 @@ namespace Valorant_Training_Stats
             {
                 if ((Settings.PracticeMode == speed[0] || Settings.PracticeMode == speed[1] || 
                     Settings.PracticeMode == speed[2]) && Convert.ToInt32(txt_Result.Text) < 30)
+                    // checks for gamemode and result txt < 30
                 {
                     int result = Convert.ToInt32(txt_Result.Text);
                     result++;
