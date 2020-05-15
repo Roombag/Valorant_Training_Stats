@@ -18,6 +18,8 @@ using System.Windows.Shapes;
 using Valorant;
 using NHotkey.Wpf;
 using NHotkey;
+using System.Text.RegularExpressions;
+
 
 namespace Valorant_Training_Stats
 {
@@ -185,6 +187,10 @@ namespace Valorant_Training_Stats
 
         void SaveResult()
         {
+
+            string dir = @"C:\Users\Public\TestFolder\Valorant_Practice_Stats_Test.csv";
+            // the @ indicates that the string ignores escape characters like '\'
+
             // TODO: Clean this fucking mess up; add Header to CSV
             /*
              Ideas:
@@ -197,7 +203,7 @@ namespace Valorant_Training_Stats
 
             // Using a List<string>
 
-            
+
 
             String CurrentTime = DateTime.Now.ToString();
 
@@ -224,7 +230,7 @@ namespace Valorant_Training_Stats
 
             foreach (var item in output)
             {
-                System.IO.File.AppendAllText(@"C:\Users\Public\TestFolder\Valorant_Practice_Stats_Test.csv", item);
+                System.IO.File.AppendAllText(dir, item);
             }
             // System.IO.File.AppendAllText(@"C:\Users\Public\TestFolder\Valorant_Practice_Stats_Test.csv", output);
             // shit works, wtf
@@ -238,16 +244,47 @@ namespace Valorant_Training_Stats
 
         private void IncrementResult()
         {
-            int result = Convert.ToInt32(txt_Result.Text);
-            result++;
-            txt_Result.Text = Convert.ToString(result);
+            List<string> speed = new List<string> { "Easy", "Medium", "Hard" };
+
+            try
+            {
+                if ((Settings.PracticeMode == speed[0] || Settings.PracticeMode == speed[1] || 
+                    Settings.PracticeMode == speed[2]) && Convert.ToInt32(txt_Result.Text) < 30)
+                {
+                    int result = Convert.ToInt32(txt_Result.Text);
+                    result++;
+                    txt_Result.Text = Convert.ToString(result);
+                }
+                else if(Settings.PracticeMode != speed[0] && Settings.PracticeMode != speed[1] &&
+                    Settings.PracticeMode != speed[2])
+                {
+                    int result = Convert.ToInt32(txt_Result.Text);
+                    result++;
+                    txt_Result.Text = Convert.ToString(result);
+                }
+                
+            }
+            catch (Exception)
+            {
+                txt_Result.Text = "30";
+            }
+            
         }
 
         private void DecrementResult()
         {
-            int result = Convert.ToInt32(txt_Result.Text);
-            result--;
-            txt_Result.Text = Convert.ToString(result);
+            try
+            {
+                int result = Convert.ToInt32(txt_Result.Text);
+                if (result > 0) result--;
+                txt_Result.Text = Convert.ToString(result);
+            }
+            catch (Exception)
+            {
+
+                txt_Result.Text = "30";
+            }
+            
         }
 
         private void btn_Medium_Click(object sender, RoutedEventArgs e)
@@ -321,5 +358,11 @@ namespace Valorant_Training_Stats
 
         }
 
+        private void txt_Result_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            txt_Result.Text = Regex.Replace(txt_Result.Text, "[^0-9]+", "");
+            // this replaces Text that is not a number with an empty string
+        }
+    
     }
 }
