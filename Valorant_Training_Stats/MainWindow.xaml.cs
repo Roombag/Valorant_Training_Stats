@@ -78,7 +78,7 @@ namespace Valorant_Training_Stats
 
         static class Settings
         {
-            public static string PracticeMode;
+            public static string PracticeMode = "";
             public static bool BotsStrafe = false;
             public static bool BotArmor = false;
             public static bool InfAmmo = true;
@@ -185,20 +185,52 @@ namespace Valorant_Training_Stats
 
         void SaveResult()
         {
-            // TODO: Clean this fucking mess up
+            // TODO: Clean this fucking mess up; add Header to CSV
+            /*
+             Ideas:
+                - Add all Output strings to a List<string>, Iterate over List items to add Comma
+                - Use a Library (basically cheating)
+                - Create some Method or smth, idk probably overkill
+             
+             
+             */
+
+            // Using a List<string>
+
+            
 
             String CurrentTime = DateTime.Now.ToString();
-            //var currentweapon = cbx_Weapon_Select.Text;
-            string Output = CurrentTime + ", " + txt_Result.Text + ", " + Settings.PracticeMode + ", " +
+
+            List<string> output = new List<string> 
+            { 
+                CurrentTime, txt_Result.Text, Settings.PracticeMode ,  Convert.ToString(Settings.BotsStrafe), Convert.ToString(Settings.BotArmor),
+                Convert.ToString(Settings.InfAmmo), cbx_Weapon_Select.Text, GetWeapon(cbx_Weapon_Select.Text).type.name
+            };
+
+            for (int i = 1; i < output.Count; i+=2)
+            {
+                output.Insert(i, ", ");
+            }
+
+            output.Add("\n");
+
+
+            // Original Output
+            /* string Output = CurrentTime + ", " + txt_Result.Text + ", " + Settings.PracticeMode + ", " +
                 Settings.BotsStrafe + ", " + Settings.BotArmor + ", " + Settings.InfAmmo + ", " +
                 cbx_Weapon_Select.Text + ", " + GetWeapon(cbx_Weapon_Select.Text).type.name + "\n";
-            //string Output = "Mode: " + Settings.Practice_Mode + ", Score: " +txt_Result.Text+"\n";
-            System.IO.File.AppendAllText(@"C:\Users\Public\TestFolder\Valorant_Practice_Stats_Test.csv", Output);
+                */
+            //System.IO.File.AppendAllText(@"C:\Users\Public\TestFolder\Valorant_Practice_Stats_Test.csv", Output);
+
+            foreach (var item in output)
+            {
+                System.IO.File.AppendAllText(@"C:\Users\Public\TestFolder\Valorant_Practice_Stats_Test.csv", item);
+            }
+            // System.IO.File.AppendAllText(@"C:\Users\Public\TestFolder\Valorant_Practice_Stats_Test.csv", output);
             // shit works, wtf
-            txt_Test.Text = GetWeapon(cbx_Weapon_Select.Text).type.name;
         }
 
-        // All Button click Methods below
+        // All Button click event Methods below
         private void btn_Easy_Click(object sender, RoutedEventArgs e)
         {
             ModeButtonPressed((Button)sender);
