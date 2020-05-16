@@ -74,7 +74,7 @@ namespace Valorant_Training_Stats
         {
             HotkeyManager.Current.AddOrReplace("Increment", Key.PageUp, ModifierKeys.Control, OnIncrement);
             HotkeyManager.Current.AddOrReplace("Decrement", Key.PageDown, ModifierKeys.Control, OnDecrement);
-            HotkeyManager.Current.AddOrReplace("Done", Key.End, ModifierKeys.Control, OnDone);
+            HotkeyManager.Current.AddOrReplace("save", Key.End, ModifierKeys.Control, Onsave);
         }
 
 
@@ -99,7 +99,7 @@ namespace Valorant_Training_Stats
             e.Handled = true;
         }
 
-        private void OnDone(object sender, HotkeyEventArgs e)
+        private void Onsave(object sender, HotkeyEventArgs e)
         {
             SaveResult();
             e.Handled = true;
@@ -188,24 +188,19 @@ namespace Valorant_Training_Stats
         void SaveResult()
         {
 
-            string dir = @"C:\Users\Public\TestFolder\Valorant_Practice_Stats_Test.csv";
+            string dir = @"C:\Users\Public\TestFolder\Valorant_Practice_Stats_Test3.csv";
             // the @ indicates that the string ignores escape characters like '\'
 
-            // TODO: Clean this fucking mess up; add Header to CSV
-            /*
-             Ideas:
-                - Add all Output strings to a List<string>, Iterate over List items to add Comma
-                - Use a Library (basically cheating)
-                - Create some Method or smth, idk probably overkill
-             
-             
-             */
 
-            // Using a List<string>
+            if (!System.IO.File.Exists(dir))
+            {
+                // Create CSV Header if new File
+                string csvHeader = "Time,Score,Mode,Bots Strafe,Bot Armor,Infinite Ammo,Weapon,Weapon Type\n";
+                System.IO.File.WriteAllText(dir, csvHeader);
+            }
 
-
-
-            String CurrentTime = DateTime.Now.ToString();
+            string CurrentTime = DateTime.Now.ToString();
+            string delim = ",";
 
             List<string> output = new List<string> 
             { 
@@ -215,7 +210,7 @@ namespace Valorant_Training_Stats
 
             for (int i = 1; i < output.Count; i+=2)
             {
-                output.Insert(i, ", ");
+                output.Insert(i, delim);
             }
 
             output.Add("\n");
@@ -334,7 +329,7 @@ namespace Valorant_Training_Stats
         }
 
 
-        private void btn_Done_Click(object sender, RoutedEventArgs e)
+        private void btn_save_Click(object sender, RoutedEventArgs e)
         {
             SaveResult();
         }
