@@ -222,13 +222,18 @@ namespace Valorant_Training_Stats
                 cbx_Weapon_Select.Text + ", " + GetWeapon(cbx_Weapon_Select.Text).type.name + "\n";
                 */
             //System.IO.File.AppendAllText(@"C:\Users\Public\TestFolder\Valorant_Practice_Stats_Test.csv", Output);
-
-            foreach (var item in output)
+            try
             {
-                System.IO.File.AppendAllText(dir, item);
+                foreach (var item in output)
+                {
+                    System.IO.File.AppendAllText(dir, item);
+                }
             }
-            // System.IO.File.AppendAllText(@"C:\Users\Public\TestFolder\Valorant_Practice_Stats_Test.csv", output);
-            // shit works, wtf
+            catch (System.IO.IOException)
+            {
+
+                txt_Test.Text = "Error, File Open";
+            }
         }
 
         // All Button click event Methods below
@@ -329,7 +334,7 @@ namespace Valorant_Training_Stats
         }
 
 
-        private void btn_save_Click(object sender, RoutedEventArgs e)
+        private void btn_Save_Click(object sender, RoutedEventArgs e)
         {
             SaveResult();
         }
