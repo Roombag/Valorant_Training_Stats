@@ -19,7 +19,7 @@ using Valorant;
 using NHotkey.Wpf;
 using NHotkey;
 using System.Text.RegularExpressions;
-
+using System.Threading;
 
 namespace Valorant_Training_Stats
 {
@@ -33,6 +33,14 @@ namespace Valorant_Training_Stats
     public partial class MainWindow : Window
     {
 
+        static class Settings
+        {
+            public static string PracticeMode = "";
+            public static bool BotsStrafe = false;
+            public static bool BotArmor = false;
+            public static bool InfAmmo = true;
+        }
+
         public MainWindow()
         {
             InitializeComponent();
@@ -41,7 +49,11 @@ namespace Valorant_Training_Stats
             SetHotkeys();
         }
 
-        // Methods called by MainWindow below
+        /*************************************************************************************************************/
+
+        // Methods called by MainWindow
+
+        /*************************************************************************************************************/
 
         void InitializeButtons()
         {
@@ -52,21 +64,9 @@ namespace Valorant_Training_Stats
 
         void CreateDropdown()
         {
-            {// I didn't know how to foreach....
-
-            // List<String> WeaponNames = new List<string>();
-            //for (int i = 0; i < Valorant.Weapons.WeaponList.Count; i++)
-            }
             foreach (Weapon item in Valorant.Weapons.WeaponList)
             {
                 cbx_Weapon_Select.Items.Add(item.name);
-            }
-            {
-                //WeaponNames.Add(Valorant.Weapons.WeaponList[i].name);
-                //cbx_Weapon_Select.Items.Add(Valorant.Weapons.WeaponList[i].name
-                // cbx_Weapon_Select.ItemsSource = WeaponNames;
-                //int i = 1;
-                //cbx_Weapon_Select.ItemsSource = Valorant.Weapons.WeaponList[i].name;
             }
         }
 
@@ -77,15 +77,6 @@ namespace Valorant_Training_Stats
             HotkeyManager.Current.AddOrReplace("save", Key.End, ModifierKeys.Control, Onsave);
         }
 
-
-        static class Settings
-        {
-            public static string PracticeMode = "";
-            public static bool BotsStrafe = false;
-            public static bool BotArmor = false;
-            public static bool InfAmmo = true;
-            // public static string SelectedWeapon;
-        }
 
         public void OnIncrement(object sender, HotkeyEventArgs e)
         {
@@ -105,8 +96,12 @@ namespace Valorant_Training_Stats
             e.Handled = true;
         }
 
+        /*************************************************************************************************************/
 
-      
+        // Methods called by Button Methods
+
+        /*************************************************************************************************************/
+
         void ModeButtonPressed(Button Pressed_Button)
         {
 
@@ -172,19 +167,6 @@ namespace Valorant_Training_Stats
             }
         }
 
-        //private Weapon GetSelectedWeapon(string strWeapon)
-        //{
-
-        //    return Valorant.Weapons.Ares;
-        //}
-
-        public Weapon GetWeapon(string weap)
-        {
-            Weapon ret = Weapons.WeaponList.Find(x => x.name.Contains(weap));
-            // ???
-            return ret;
-        }
-
         void SaveResult()
         {
 
@@ -215,13 +197,14 @@ namespace Valorant_Training_Stats
 
             output.Add("\n");
 
-
-            // Original Output
-            /* string Output = CurrentTime + ", " + txt_Result.Text + ", " + Settings.PracticeMode + ", " +
-                Settings.BotsStrafe + ", " + Settings.BotArmor + ", " + Settings.InfAmmo + ", " +
-                cbx_Weapon_Select.Text + ", " + GetWeapon(cbx_Weapon_Select.Text).type.name + "\n";
-                */
-            //System.IO.File.AppendAllText(@"C:\Users\Public\TestFolder\Valorant_Practice_Stats_Test.csv", Output);
+            {
+                // Original Output
+                /* string Output = CurrentTime + ", " + txt_Result.Text + ", " + Settings.PracticeMode + ", " +
+                    Settings.BotsStrafe + ", " + Settings.BotArmor + ", " + Settings.InfAmmo + ", " +
+                    cbx_Weapon_Select.Text + ", " + GetWeapon(cbx_Weapon_Select.Text).type.name + "\n";
+                    */
+                //System.IO.File.AppendAllText(@"C:\Users\Public\TestFolder\Valorant_Practice_Stats_Test.csv", Output);
+            }
             try
             {
                 foreach (var item in output)
@@ -232,14 +215,8 @@ namespace Valorant_Training_Stats
             catch (System.IO.IOException)
             {
 
-                txt_Test.Text = "Error, File Open";
+                SendNotification("Error, file is opened by another program. Please close all programs accessing the file.");
             }
-        }
-
-        // All Button click event Methods below
-        private void btn_Easy_Click(object sender, RoutedEventArgs e)
-        {
-            ModeButtonPressed((Button)sender);
         }
 
         private void IncrementResult()
@@ -248,28 +225,28 @@ namespace Valorant_Training_Stats
 
             try
             {
-                if ((Settings.PracticeMode == speed[0] || Settings.PracticeMode == speed[1] || 
+                if ((Settings.PracticeMode == speed[0] || Settings.PracticeMode == speed[1] ||
                     Settings.PracticeMode == speed[2]) && Convert.ToInt32(txt_Result.Text) < 30)
-                    // checks for gamemode and result txt < 30
+                // checks for gamemode and result txt < 30
                 {
                     int result = Convert.ToInt32(txt_Result.Text);
                     result++;
                     txt_Result.Text = Convert.ToString(result);
                 }
-                else if(Settings.PracticeMode != speed[0] && Settings.PracticeMode != speed[1] &&
+                else if (Settings.PracticeMode != speed[0] && Settings.PracticeMode != speed[1] &&
                     Settings.PracticeMode != speed[2])
                 {
                     int result = Convert.ToInt32(txt_Result.Text);
                     result++;
                     txt_Result.Text = Convert.ToString(result);
                 }
-                
+
             }
             catch (Exception)
             {
                 txt_Result.Text = "30";
             }
-            
+
         }
 
         private void DecrementResult()
@@ -285,7 +262,34 @@ namespace Valorant_Training_Stats
 
                 txt_Result.Text = "30";
             }
-            
+
+        }
+
+        /*************************************************************************************************************/
+
+
+        public Weapon GetWeapon(string weap)
+        {
+            Weapon ret = Weapons.WeaponList.Find(x => x.name.Contains(weap));
+            // ???
+            return ret;
+        }
+        public void SendNotification(string text)
+        {
+            lbl_Notification.Content = text;
+            lbl_Notification.Foreground = Brushes.Black;
+            lbl_Notification.Background = Brushes.OrangeRed;
+        }
+
+        /*************************************************************************************************************/
+
+        // GUI Event Methods
+
+        /*************************************************************************************************************/
+
+        private void btn_Easy_Click(object sender, RoutedEventArgs e)
+        {
+            ModeButtonPressed((Button)sender);
         }
 
         private void btn_Medium_Click(object sender, RoutedEventArgs e)

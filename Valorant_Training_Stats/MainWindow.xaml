@@ -31,12 +31,14 @@
         <Label Content="Valorant Training Stats" HorizontalAlignment="Left" Height="54" VerticalAlignment="Top" Width="792" FontWeight="Bold" Background="#FF7E7C7C" Foreground="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="20"/>
         <Button x:Name="btn_Save" Content="Save" HorizontalAlignment="Left" Height="105" Margin="428,499,0,0" VerticalAlignment="Top" Width="180" Background="#FFD7DBA5" Foreground="Black" FontSize="36" FontWeight="SemiBold" Click="btn_Save_Click" ForceCursor="True"/>
         <TextBox x:Name="txt_Result" HorizontalAlignment="Left" Height="105" Margin="182,499,0,0" TextWrapping="Wrap" Text="30" VerticalAlignment="Top" Width="180" Background="#FFD7DBA5" TextAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="SemiBold" FontSize="48" TextChanged="txt_Result_TextChanged"/>
-        <Button x:Name="btn_Plus" Content="+" HorizontalAlignment="Left" Height="50" Margin="114,499,0,0" VerticalAlignment="Top" Width="50" FontSize="48" FontWeight="ExtraBold" Padding="1,-15,1,1" Background="#FF858585" Click="btn_Plus_Click"/>
-        <Button x:Name="btn_Minus" Content="-" HorizontalAlignment="Left" Height="50" Margin="114,554,0,0" VerticalAlignment="Top" Width="50" FontSize="48" FontWeight="ExtraBold" Padding="1,-15,1,1" Background="#FF858585" Click="btn_Minus_Click"/>
+        <Button x:Name="btn_Plus" HorizontalAlignment="Left" Height="50" Margin="114,499,0,0" VerticalAlignment="Top" Width="50" FontSize="48" FontWeight="ExtraBold" Padding="4,1" Background="#FF858585" Click="btn_Plus_Click" ContentTemplate="{StaticResource Add_grey}"/>
+        <Button x:Name="btn_Minus" HorizontalAlignment="Left" Height="50" Margin="114,554,0,0" VerticalAlignment="Top" Width="50" FontSize="48" FontWeight="ExtraBold" Padding="4,1" Background="#FF858585" Click="btn_Minus_Click" ContentTemplate="{StaticResource Remove_grey}"/>
         <Label x:Name="lbl_Weapon" Content="Weapon" HorizontalAlignment="Left" Height="41" Margin="555,205,0,0" VerticalAlignment="Top" Width="180" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="#FF4E7A6B" FontSize="18" FontWeight="Medium" Foreground="#FFEBEEB2" BorderBrush="#FFA7BDB5" BorderThickness="0,0,0,2"/>
         <ComboBox x:Name="cbx_Weapon_Select" HorizontalAlignment="Left" Margin="555,254,0,0" VerticalAlignment="Top" Width="180" Height="23"/>
         <TextBox x:Name="txt_Test" HorizontalAlignment="Left" Height="31" Margin="36,429,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="146"/>
         <Label x:Name="lbl_Notification" Content="Test" HorizontalAlignment="Left" Height="36" Margin="67,650,0,0" VerticalAlignment="Top" Width="668" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+        <Button x:Name="btn_ChooseFilePath" HorizontalAlignment="Left" Height="50" Margin="629,499,0,0" VerticalAlignment="Top" Width="50" ContentTemplate="{StaticResource FolderClosed_grey}" Background="#FF858585" Padding="4,1,1,1"/>
+        <Button x:Name="btn_RemoveRow" HorizontalAlignment="Left" Height="50" Margin="629,554,0,0" VerticalAlignment="Top" Width="50" ContentTemplate="{StaticResource RemoveRow}" Background="#FF858585" Padding="1,1,4,4"/>
 
     </Grid>
 </Window>
