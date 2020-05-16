@@ -35,10 +35,11 @@
         <Button x:Name="btn_Minus" HorizontalAlignment="Left" Height="50" Margin="114,554,0,0" VerticalAlignment="Top" Width="50" FontSize="48" FontWeight="ExtraBold" Padding="4,1" Background="#FF858585" Click="btn_Minus_Click" ContentTemplate="{StaticResource Remove_grey}"/>
         <Label x:Name="lbl_Weapon" Content="Weapon" HorizontalAlignment="Left" Height="41" Margin="555,205,0,0" VerticalAlignment="Top" Width="180" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="#FF4E7A6B" FontSize="18" FontWeight="Medium" Foreground="#FFEBEEB2" BorderBrush="#FFA7BDB5" BorderThickness="0,0,0,2"/>
         <ComboBox x:Name="cbx_Weapon_Select" HorizontalAlignment="Left" Margin="555,254,0,0" VerticalAlignment="Top" Width="180" Height="23"/>
-        <TextBox x:Name="txt_Test" HorizontalAlignment="Left" Height="31" Margin="36,429,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="146"/>
-        <Label x:Name="lbl_Notification" Content="Test" HorizontalAlignment="Left" Height="36" Margin="67,650,0,0" VerticalAlignment="Top" Width="668" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
-        <Button x:Name="btn_ChooseFilePath" HorizontalAlignment="Left" Height="50" Margin="629,499,0,0" VerticalAlignment="Top" Width="50" ContentTemplate="{StaticResource FolderClosed_grey}" Background="#FF858585" Padding="4,1,1,1"/>
-        <Button x:Name="btn_RemoveRow" HorizontalAlignment="Left" Height="50" Margin="629,554,0,0" VerticalAlignment="Top" Width="50" ContentTemplate="{StaticResource RemoveRow}" Background="#FF858585" Padding="1,1,4,4"/>
+        <TextBox x:Name="txt_Test" HorizontalAlignment="Left" Height="84" Margin="36,395,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="146"/>
+        <Label x:Name="lbl_Notification" Content="Test" HorizontalAlignment="Left" Height="36" Margin="67,650,0,0" VerticalAlignment="Top" Width="668" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="14" FontWeight="Medium"/>
+        <Button x:Name="btn_ChooseFilePath" HorizontalAlignment="Left" Height="50" Margin="629,499,0,0" VerticalAlignment="Top" Width="50" ContentTemplate="{StaticResource FolderClosed_grey}" Background="#FF858585" Padding="4,1,1,1" Click="btn_ChooseFilePath_Click"/>
+        <Button x:Name="btn_RemoveRow" HorizontalAlignment="Left" Height="50" Margin="629,554,0,0" VerticalAlignment="Top" Width="50" ContentTemplate="{StaticResource RemoveRow}" Background="#FF858585" Padding="1,1,4,4" Click="btn_RemoveRow_Click"/>
+        <Button x:Name="btn_Close_Notification" HorizontalAlignment="Left" Height="28" Margin="699,654,0,0" VerticalAlignment="Top" Width="27" ContentTemplate="{StaticResource Close}" Click="btn_Close_Notification_Click"/>
 
     </Grid>
 </Window>

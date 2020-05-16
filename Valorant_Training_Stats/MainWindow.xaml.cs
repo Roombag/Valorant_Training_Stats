@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
 using System.Linq;
@@ -19,7 +20,7 @@ using Valorant;
 using NHotkey.Wpf;
 using NHotkey;
 using System.Text.RegularExpressions;
-using System.Threading;
+using Microsoft.Win32;
 
 namespace Valorant_Training_Stats
 {
@@ -39,6 +40,10 @@ namespace Valorant_Training_Stats
             public static bool BotsStrafe = false;
             public static bool BotArmor = false;
             public static bool InfAmmo = true;
+            public static string Path = @"C:\Users\Public\TestFolder\Valorant_Practice_Stats_Test3.csv";
+            // the @ indicates that the string ignores escape characters like '\'
+            public static SaveFileDialog saveFileDialog = new SaveFileDialog();
+
         }
 
         public MainWindow()
@@ -170,16 +175,13 @@ namespace Valorant_Training_Stats
         void SaveResult()
         {
 
-            string dir = @"C:\Users\Public\TestFolder\Valorant_Practice_Stats_Test3.csv";
-            // the @ indicates that the string ignores escape characters like '\'
 
-
-            if (!System.IO.File.Exists(dir))
-            {
-                // Create CSV Header if new File
-                string csvHeader = "Time,Score,Mode,Bots Strafe,Bot Armor,Infinite Ammo,Weapon,Weapon Type\n";
-                System.IO.File.WriteAllText(dir, csvHeader);
-            }
+            //if (System.IO.File.Exists(dir) == false)
+            //{
+            //    // Create CSV Header if new File
+            //    string csvHeader = "Time,Score,Mode,Bots Strafe,Bot Armor,Infinite Ammo,Weapon,Weapon Type\n";
+            //    System.IO.File.WriteAllText(Settings.Path, csvHeader);
+            //}
 
             string CurrentTime = DateTime.Now.ToString();
             string delim = ",";
@@ -209,7 +211,7 @@ namespace Valorant_Training_Stats
             {
                 foreach (var item in output)
                 {
-                    System.IO.File.AppendAllText(dir, item);
+                    System.IO.File.AppendAllText(Settings.saveFileDialog.FileName, item);
                 }
             }
             catch (System.IO.IOException)
@@ -279,6 +281,12 @@ namespace Valorant_Training_Stats
             lbl_Notification.Content = text;
             lbl_Notification.Foreground = Brushes.Black;
             lbl_Notification.Background = Brushes.OrangeRed;
+        }
+
+        public void CloseNotification()
+        {
+            lbl_Notification.Background = Brushes.Transparent;
+            lbl_Notification.Foreground = Brushes.Transparent;
         }
 
         /*************************************************************************************************************/
@@ -368,6 +376,32 @@ namespace Valorant_Training_Stats
             txt_Result.Text = Regex.Replace(txt_Result.Text, "[^0-9]+", "");
             // this replaces Text that is not a number with an empty string
         }
-    
+
+        private void btn_ChooseFilePath_Click(object sender, RoutedEventArgs e)
+        {
+            string csvHeader = "Time,Score,Mode,Bots Strafe,Bot Armor,Infinite Ammo,Weapon,Weapon Type\n";
+
+            // SaveFileDialog saveFileDialog = new SaveFileDialog();
+            Settings.saveFileDialog.Filter = "CSV (Comma delimited) (*.csv)|*.csv|All files (*.*)|*.*";
+            if (Settings.saveFileDialog.ShowDialog() == true)
+            {
+
+                File.WriteAllText(Settings.saveFileDialog.FileName, csvHeader);
+                Settings.Path = @File.ReadAllText(Settings.saveFileDialog.FileName);
+                txt_Test.Text = Settings.saveFileDialog.FileName;
+
+            }
+
+        }
+
+        private void btn_RemoveRow_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btn_Close_Notification_Click(object sender, RoutedEventArgs e)
+        {
+            CloseNotification();
+        }
     }
 }
